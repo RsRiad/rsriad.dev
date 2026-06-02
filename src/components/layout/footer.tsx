@@ -20,7 +20,7 @@ export default function Footer() {
           <SparklesText>
             {" "}
             <div className="flex gap-4">
-              Let's{" "}
+              Let&apos;s{" "}
               <RotateWords text=" " words={["design", "build", "create"]} />
             </div>
           </SparklesText>{" "}

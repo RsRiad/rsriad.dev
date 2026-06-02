@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { WhatsAppIcon, LinkedinIcon, FacebookIcon } from "./social-icons";
+import { WhatsAppIcon, LinkedinIcon, FacebookIcon, VerifiedIcon } from "./social-icons";
 
 const socials = [
   { icon: WhatsAppIcon, href: "https://wa.me/8801703750565", label: "WhatsApp",className: "size-1" },
@@ -50,8 +50,8 @@ export function ProfileCard() {
       {/* Info Card — compact */}
       <div className="mt-2 p-2">
       {/* border border-gray-100 dark:border-white/10 shadow-sm */}
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
-          Md. Rawha Siddiqi Riad
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-tight flex gap-2">
+          Md. Rawha Siddiqi Riad <VerifiedIcon />
         </h2>
         <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
           Full Stack Developer, Software Engineer &amp; Researcher

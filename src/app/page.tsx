@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { HeroSection } from "@/components/sections/hero-section";
 import { TechStackMarquee } from "@/components/sections/tech-stack-marquee";
 import { ExperienceSection } from "@/components/sections/experience-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <TechStackMarquee />
+      <ProjectsSection />
       <ExperienceSection />
       <Footer />
     </main>

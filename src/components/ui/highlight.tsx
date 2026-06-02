@@ -43,8 +43,7 @@ type HighlightContextType<T extends string> = {
 };
 
 const HighlightContext = React.createContext<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  HighlightContextType<any> | undefined
+  HighlightContextType<string> | undefined
 >(undefined);
 
 function useHighlight<T extends string>(): HighlightContextType<T> {
@@ -227,10 +226,7 @@ function Highlight<T extends React.ElementType = 'div'>({
     setBoundsState((prev) => (prev === null ? prev : null));
   }, []);
 
-  React.useEffect(() => {
-    if (value !== undefined) setActiveValue(value);
-    else if (defaultValue !== undefined) setActiveValue(defaultValue);
-  }, [value, defaultValue]);
+
 
   const id = React.useId();
 

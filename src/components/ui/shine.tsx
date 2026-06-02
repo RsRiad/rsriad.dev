@@ -46,12 +46,7 @@ const Shine = ({
   const [isHovered, setIsHovered] = React.useState(false);
   const [currentDelay, setCurrentDelay] = React.useState(delay);
 
-  React.useEffect(() => {
-    setAnimateState(isAlwaysOn ? 'shine' : 'initial');
-    if (isAlwaysOn) {
-      setCurrentDelay(delay);
-    }
-  }, [isAlwaysOn, delay]);
+
 
   React.useEffect(() => {
     return () => {
