@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Md. Rawha Siddiqi Riad | Portfolio",
-  description: "Full Stack Developer & AI/ML Researcher",
+  description: "Full Stack Developer, Software Engineer & AI/ML Researcher",
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           {/* Bottom Glass Blur */}
-          <div className="pointer-events-none fixed bottom-0 left-0 z-20 h-20 w-full bg-background/50 backdrop-blur-xl [mask-image:linear-gradient(to_top,black_10%,transparent)]" />
+          <div className="pointer-events-none fixed bottom-0 left-0 z-20 h-10 w-full bg-background/80 backdrop-blur-2xl [mask-image:linear-gradient(to_top,black_5%,transparent)]" />
         </ThemeProvider>
       </body>
     </html>

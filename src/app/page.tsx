@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { HeroSection } from "@/components/sections/hero-section";
 import { TechStackMarquee } from "@/components/sections/tech-stack-marquee";
@@ -7,6 +8,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <TechStackMarquee />
+      <Footer />
     </main>
   );
 }

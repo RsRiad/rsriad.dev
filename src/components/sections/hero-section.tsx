@@ -57,7 +57,7 @@ export function HeroSection() {
                   text="Riad."
                 /> */}
               </div>
-              <span className="text-gray-900 dark:text-white block mt-1">
+              <span className="text-blsck dark:text-white block mt-1">
                 Welcome to my slice of the web!
               </span>
             </h1>
@@ -69,7 +69,7 @@ export function HeroSection() {
           >
             <p>
               I&apos;m a{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
+              <span className="font-semibold text-blsck dark:text-white">
                 Full Stack Developer, Software Engineer &amp; Researcher
               </span>{" "}
               with hands-on experience in production-level web applications and

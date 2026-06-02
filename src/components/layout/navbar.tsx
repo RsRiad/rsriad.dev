@@ -39,7 +39,15 @@ export function Navbar() {
 
         return (
           <button
-            onClick={(e) => toggleTheme(nextTheme, e)}
+            onClick={(e) => {
+              try {
+                // Play a subtle switch sound (you can change the URL to a local file in /public, e.g., '/switch.mp3')
+                const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3');
+                audio.volume = 0.4;
+                audio.play().catch(() => {});
+              } catch (err) {}
+              toggleTheme(nextTheme, e);
+            }}
             className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors flex items-center justify-center border border-transparent dark:border-white/10"
             aria-label="Toggle theme"
           >
