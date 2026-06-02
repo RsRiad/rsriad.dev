@@ -7,7 +7,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTheme } from "./theme-provider";
 import { ThemeToggler } from "@/components/animate-ui/primitives/effects/theme-toggler";
-import { Highlight, HighlightItem } from "@/components/animate-ui/primitives/effects/highlight";
+import {
+  Highlight,
+  HighlightItem,
+} from "@/components/animate-ui/primitives/effects/highlight";
 
 export function Navbar() {
   const { theme, resolvedTheme, setTheme } = useTheme();
@@ -61,7 +64,26 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-fit px-4"
       >
-        <nav className="flex items-center gap-4 md:gap-6 bg-white/90 dark:bg-white/10 backdrop-blur-xl border border-gray-200/60 dark:border-white/10 rounded-full px-4 py-2 shadow-sm transition-colors duration-300">
+        <nav
+          className="
+          flex items-center gap-4 md:gap-6
+          rounded-full px-4 py-2
+          backdrop-blur-2xl
+          transition-colors duration-300
+          border
+          bg-gradient-to-r
+          from-white/55
+          via-white/35
+          to-white/55
+          border-black/10
+          shadow-[0_8px_30px_rgb(0,0,0,0.08)]
+          dark:from-white/10
+          dark:via-white/5
+          dark:to-white/10
+          dark:border-white/10
+        "
+        >
+          {" "}
           {/* Avatar + Name */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 ring-2 ring-gray-100 dark:ring-gray-700">
@@ -78,7 +100,6 @@ export function Navbar() {
               Md. Rawha Siddiqi Riad
             </span>
           </Link>
-
           {/* Desktop Links */}
           <div className="hidden md:flex items-center text-sm font-medium text-gray-500 dark:text-gray-400">
             <Highlight
@@ -100,14 +121,16 @@ export function Navbar() {
               ))}
             </Highlight>
           </div>
-
           {/* Mobile Menu Button & Theme Toggler */}
           <div className="flex items-center gap-2 md:pl-3 md:border-l border-gray-200 dark:border-white/15">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden flex items-center gap-1.5 text-sm font-medium text-gray-900 dark:text-white px-4 py-1.5 rounded-full border border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
             >
-              {isMobileMenuOpen ? "Close" : "Menu"} <ChevronDown className={`w-4 h-4 transition-transform ${isMobileMenuOpen ? "rotate-180" : ""}`} />
+              {isMobileMenuOpen ? "Close" : "Menu"}{" "}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform ${isMobileMenuOpen ? "rotate-180" : ""}`}
+              />
             </button>
             {renderThemeToggler()}
           </div>

@@ -6,7 +6,7 @@ import { ProfileCard } from "@/components/profile-card";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Shine } from "./animate-ui/primitives/effects/shine";
-
+import { DiaTextReveal } from "./ui/text-reveal";
 const container = {
   hidden: { opacity: 0 },
   visible: {
@@ -37,8 +37,29 @@ export function HeroSection() {
         >
           <motion.div variants={item}>
             <h1 className="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[3rem] font-bold tracking-tight leading-[1.08]">
-              <span className="text-gray-400 dark:text-gray-500 block sm:inline">Hey I&apos;m Riad.</span>
-              <span className="text-gray-900 dark:text-white block mt-1">Welcome to my slice of the web!</span>
+              <div className="block">
+                <span className="text-gray-400 dark:text-gray-500">
+                  Hey I&apos;m{" Riad."}
+                </span>
+{/* 
+                <DiaTextReveal
+                  className="
+                    text-[2.5rem]
+                    sm:text-4xl
+                    md:text-5xl
+                    lg:text-[3rem]
+                    font-bold
+                    tracking-tight
+                    leading-[1.08]
+                    inline-block
+                  "
+                  colors={["#22d3ee", "#818cf8", "#f472b6", "#34d399"]}
+                  text="Riad."
+                /> */}
+              </div>
+              <span className="text-gray-900 dark:text-white block mt-1">
+                Welcome to my slice of the web!
+              </span>
             </h1>
           </motion.div>
 
@@ -52,15 +73,16 @@ export function HeroSection() {
                 Full Stack Developer, Software Engineer &amp; Researcher
               </span>{" "}
               with hands-on experience in production-level web applications and
-              published research in Machine Learning, LLMs and Combinatorial Optimization.
+              published research in Machine Learning, LLMs and Combinatorial
+              Optimization.
             </p>
             <p>
               Skilled in{" "}
               <span className="font-semibold text-gray-900 dark:text-white">
                 Next.js, React, Java Script, C++
               </span>
-              , and modern full-stack technologies, solving 600+ competitive programming
-              problems.
+              , and modern full-stack technologies, solving 600+ competitive
+              programming problems.
             </p>
           </motion.div>
 
@@ -76,16 +98,15 @@ export function HeroSection() {
             </Button>
             <Shine className="rounded-full">
               <Button
-              variant="outline"
-              asChild
-              className="rounded-full px-6 py-5 text-sm font-semibold border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-700 dark:text-gray-200"
-            >
-              <Link href="/CV.pdf" download>
-                Download CV
-              </Link>
-            </Button>
+                variant="outline"
+                asChild
+                className="rounded-full px-6 py-5 text-sm font-semibold border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-700 dark:text-gray-200"
+              >
+                <Link href="/CV.pdf" download>
+                  Download CV
+                </Link>
+              </Button>
             </Shine>
-            
           </motion.div>
         </motion.div>
 

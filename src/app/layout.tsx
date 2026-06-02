@@ -18,7 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          {/* Bottom Glass Blur */}
+          <div className="pointer-events-none fixed bottom-0 left-0 z-20 h-20 w-full bg-background/50 backdrop-blur-xl [mask-image:linear-gradient(to_top,black_10%,transparent)]" />
+        </ThemeProvider>
       </body>
     </html>
   );
