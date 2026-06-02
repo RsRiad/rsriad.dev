@@ -5,12 +5,12 @@ import { Moon, Sun, Monitor, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useTheme } from "./theme-provider";
-import { ThemeToggler } from "@/components/animate-ui/primitives/effects/theme-toggler";
+import { useTheme } from "@/providers/theme-provider";
+import { ThemeToggler } from "@/components/ui/theme-toggler";
 import {
   Highlight,
   HighlightItem,
-} from "@/components/animate-ui/primitives/effects/highlight";
+} from "@/components/ui/highlight";
 
 export function Navbar() {
   const { theme, resolvedTheme, setTheme } = useTheme();
@@ -88,7 +88,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 ring-2 ring-gray-100 dark:ring-gray-700">
               <Image
-                src="/profile.png"
+                src="/images/profile.png"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 alt="Md. Rawha Siddiqi Riad"
                 fill

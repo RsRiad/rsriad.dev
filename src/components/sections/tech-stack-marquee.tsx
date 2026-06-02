@@ -1,27 +1,6 @@
 import Image from "next/image";
 import { Marquee } from "@/components/ui/marquee";
-
-const techStack = [
-  { name: "React", icon: "/tech-stack-icons/react.svg" },
-  { name: "Next.js", icon: "/tech-stack-icons/nextjs-light.svg" },
-  { name: "Tailwind CSS", icon: "/tech-stack-icons/tailwindcss.svg" },
-  { name: "shadcn/ui", icon: "/tech-stack-icons/shadcn-ui-light.svg" },
-  { name: "Radix UI", icon: "/tech-stack-icons/radixui-light.svg" },
-  { name: "Base UI", icon: "/tech-stack-icons/base-ui-light.svg" },
-  { name: "Motion", icon: "/tech-stack-icons/motion.svg" },
-  { name: "TypeScript", icon: "/tech-stack-icons/typescript.svg" },
-  { name: "JavaScript", icon: "/tech-stack-icons/javascript.svg" },
-  { name: "Node.js", icon: "/tech-stack-icons/nodejs.svg" },
-  { name: "Git", icon: "/tech-stack-icons/git.svg" },
-  { name: "Docker", icon: "/tech-stack-icons/docker.svg" },
-  { name: "PostgreSQL", icon: "/tech-stack-icons/postgresql.svg" },
-  { name: "Figma", icon: "/tech-stack-icons/figma.svg" },
-  { name: "Claude", icon: "/tech-stack-icons/claude.svg" },
-  { name: "ChatGPT", icon: "/tech-stack-icons/chatgpt-light.svg" },
-  { name: "Astro", icon: "/tech-stack-icons/astro-light.svg" },
-  { name: "Java", icon: "/tech-stack-icons/java.svg" },
-  { name: "Python", icon: "/tech-stack-icons/python.svg" },
-];
+import { techStack } from "@/data/tech-stack";
 
 const firstRow = techStack.slice(0, Math.ceil(techStack.length / 2));
 const secondRow = techStack.slice(Math.ceil(techStack.length / 2));

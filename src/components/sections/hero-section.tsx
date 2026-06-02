@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { ProfileCard } from "@/components/profile-card";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Shine } from "./animate-ui/primitives/effects/shine";
-import { DiaTextReveal } from "./ui/text-reveal";
+import { Shine } from "@/components/ui/shine";
+import { DiaTextReveal } from "@/components/ui/text-reveal";
 const container = {
   hidden: { opacity: 0 },
   visible: {
@@ -36,7 +36,7 @@ export function HeroSection() {
           className="space-y-6"
         >
           <motion.div variants={item}>
-            <h1 className="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[3rem] font-bold tracking-tight leading-[1.08]">
+            <h1 className="text-[3rem] sm:text-4xl md:text-5xl lg:text-[3.7rem] font-bold tracking-tight leading-[1.08]">
               <div className="block">
                 <span className="text-gray-400 dark:text-gray-500">
                   Hey I&apos;m{" Riad."}
@@ -102,7 +102,7 @@ export function HeroSection() {
                 asChild
                 className="rounded-full px-6 py-5 text-sm font-semibold border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-700 dark:text-gray-200"
               >
-                <Link href="/CV.pdf" download>
+                <Link href="/documents/CV.pdf" download>
                   Download CV
                 </Link>
               </Button>

@@ -1,6 +1,6 @@
-import { Navbar } from "@/components/navbar";
-import { HeroSection } from "@/components/hero-section";
-import { TechStackMarquee } from "@/components/Tech-Stack-Marquee";
+import { Navbar } from "@/components/layout/navbar";
+import { HeroSection } from "@/components/sections/hero-section";
+import { TechStackMarquee } from "@/components/sections/tech-stack-marquee";
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] transition-colors duration-300">

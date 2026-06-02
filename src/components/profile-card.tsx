@@ -23,7 +23,7 @@ export function ProfileCard() {
       {/* Profile Image & Overlaid Socials */}
       <div className="relative aspect-[5/4] rounded-[1.5rem] overflow-hidden bg-gray-200 dark:bg-gray-800 shadow-sm group">
         <Image
-          src="/profile.png"
+          src="/images/profile.png"
           alt="Md. Rawha Siddiqi Riad"
           fill
           sizes="(max-width: 640px) 100vw, 400px"
