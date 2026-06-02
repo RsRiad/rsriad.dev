@@ -48,7 +48,7 @@ export function TechStackMarquee() {
         {/* Left Side */}
         <div className="relative shrink-0 w-full xl:w-auto text-center xl:text-left z-10">
   <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
-    My tech <span className="font-bold">stack</span>
+    <span className="text-gray-400 dark:text-gray-400 font-bold">My tech</span> <span className="font-bold">stack</span>
   </h2>
 
   {/* Outer fade */}

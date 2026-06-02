@@ -38,7 +38,7 @@ export function HeroSection() {
           <motion.div variants={item}>
             <h1 className="text-[3rem] sm:text-4xl md:text-5xl lg:text-[3.7rem] font-bold tracking-tight leading-[1.08]">
               <div className="block">
-                <span className="text-gray-400 dark:text-gray-500">
+                <span className="text-gray-400 dark:text-gray-400">
                   Hey I&apos;m{" Riad."}
                 </span>
 {/* 
