@@ -16,7 +16,7 @@ export default function Footer() {
     <footer className="w-full bg-black text-white transition-colors duration-300 dark:bg-white dark:text-black pt-16 pb-4 px-6 md:px-12 lg:px-20 overflow-hidden select-none">
       {/* Top Heading */}
       <div className="max-w-5xl mx-auto mb-16">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight">
           <SparklesText>
             {" "}
             <div className="flex gap-4">

@@ -4,8 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Download, ChevronDown } from "lucide-react";
+import { Mail, ChevronDown } from "lucide-react";
 import { experiences } from "@/data/experience";
+import { PrimaryActionButton, DownloadCVButton } from "@/components/ui/action-buttons";
 
 export function ExperienceSection() {
   const [expandedId, setExpandedId] = useState<string | null>("kemik");
@@ -125,6 +126,7 @@ export function ExperienceSection() {
                 fill
                 sizes="64px"
                 className="object-cover"
+                loading="eager"
               />
             </div>
 
@@ -145,37 +147,13 @@ export function ExperienceSection() {
 
             {/* Button Actions */}
             <div className="flex flex-wrap gap-3 w-full">
-              {/* Contact Button in deep pink/crimson */}
-              <Link
+              <PrimaryActionButton
                 href="mailto:rsriad00@gmail.com"
-                className="
-                  flex items-center gap-2 justify-center
-                  bg-rose-600 hover:bg-rose- 600 text-white
-                  px-6 py-3.5 rounded-full text-sm font-semibold
-                  transition-all duration-300 shadow-sm shadow-[#be0055]/10 hover:shadow-md hover:scale-[1.02]
-                  active:scale-[0.98] shrink-0
-                "
+                icon={<Mail className="w-4 h-4" />}
               >
-                <Mail className="w-4 h-4" />
-                <span>Contact me</span>
-              </Link>
-
-              {/* Download CV Outline Button */}
-              <Link
-                href="/documents/CV.pdf"
-                download
-                className="
-                  flex items-center gap-2 justify-center
-                  border border-neutral-200 dark:border-neutral-800
-                  hover:bg-neutral-50 dark:hover:bg-neutral-900 text-neutral-800 dark:text-neutral-200
-                  px-6 py-3.5 rounded-full text-sm font-semibold
-                  transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]
-                  shrink-0
-                "
-              >
-                <Download className="w-4 h-4" />
-                <span>Download CV</span>
-              </Link>
+                Contact me
+              </PrimaryActionButton>
+              <DownloadCVButton />
             </div>
           </div>
         </div>

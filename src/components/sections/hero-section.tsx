@@ -1,12 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ProfileCard } from "@/components/profile-card";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Shine } from "@/components/ui/shine";
-import { DiaTextReveal } from "@/components/ui/text-reveal";
+import { PrimaryActionButton, DownloadCVButton } from "@/components/ui/action-buttons";
 const container = {
   hidden: { opacity: 0 },
   visible: {
@@ -87,26 +84,13 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div variants={item} className="flex flex-wrap gap-3">
-            <Button
-              asChild
-              className="bg-rose-600 hover:bg-rose-700 text-white rounded-full px-6 py-5 text-sm font-semibold group shadow-sm"
+            <PrimaryActionButton
+              href="#projects"
+              icon={<ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
             >
-              <Link href="#projects" className="flex items-center gap-2">
-                View Projects
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </Button>
-            <Shine className="rounded-full">
-              <Button
-                variant="outline"
-                asChild
-                className="rounded-full px-6 py-5 text-sm font-semibold border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-700 dark:text-gray-200"
-              >
-                <Link href="/documents/CV.pdf" download>
-                  Download CV
-                </Link>
-              </Button>
-            </Shine>
+              View Projects
+            </PrimaryActionButton>
+            <DownloadCVButton />
           </motion.div>
         </motion.div>
 

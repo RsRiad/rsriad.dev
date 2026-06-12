@@ -3,10 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { projects, ProjectItem } from "@/data/projects";
 import { Safari } from "@/components/ui/safari";
 import { Lens } from "@/components/ui/lens";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 // A reusable ProjectCard component
 export function ProjectCard({ project }: { project: ProjectItem }) {
@@ -128,18 +129,10 @@ export function ProjectsSection() {
 
       {/* Explore More Button */}
       <div className="mt-12 sm:mt-16 flex justify-center">
-        <Link
-          href="/projects"
-          className="
-            group/explore inline-flex items-center gap-2.5 px-8 py-4 rounded-full
-            border border-neutral-300 dark:border-neutral-850 hover:border-neutral-400 dark:hover:border-neutral-700
-            bg-white dark:bg-neutral-900/10 hover:bg-neutral-50 dark:hover:bg-neutral-900/40 text-neutral-800 dark:text-neutral-200
-            text-[14px] sm:text-sm font-semibold transition-all duration-300
-            hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none
-          "
-        >
-          <span>Explore More</span>
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/explore:translate-x-1" />
+        <Link href="/projects">
+          <InteractiveHoverButton className="px-8 py-4 text-neutral-800 dark:text-neutral-200 shadow-sm">
+            Explore More
+          </InteractiveHoverButton>
         </Link>
       </div>
     </section>

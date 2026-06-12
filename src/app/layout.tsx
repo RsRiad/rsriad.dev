@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           {children}
-          {/* Bottom Glass Blur */}
-          <div className="pointer-events-none fixed bottom-0 left-0 z-20 h-10 w-full bg-background/80 backdrop-blur-2xl [mask-image:linear-gradient(to_top,black_5%,transparent)]" />
+          <ProgressiveBlur height="10%" position="bottom" />
         </ThemeProvider>
       </body>
     </html>

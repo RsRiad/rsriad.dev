@@ -7,6 +7,7 @@ export interface EducationItem {
   activities?: string;
   description: string;
   skills?: string[];
+  image?: string;
 }
 
 export const educations: EducationItem[] = [
@@ -31,7 +32,8 @@ export const educations: EducationItem[] = [
       "Assembly Language",
       ".NET Framework",
       "ASP.NET Web API"
-    ]
+    ],
+    image: "https://ik.imagekit.io/glowaura/aiub_campus.jpeg"
   },
   {
     id: "bcpsc",
@@ -39,7 +41,8 @@ export const educations: EducationItem[] = [
     degree: "Higher School Secondary, Science",
     period: "2018 - 2020",
     grade: "GPA 5.00/5.00",
-    description: "College was a quieter phase in my journey. I mostly focused on my studies rather than extracurricular activities or sports, which allowed me to concentrate on my personal growth and academic development."
+    description: "College was a quieter phase in my journey. I mostly focused on my studies rather than extracurricular activities or sports, which allowed me to concentrate on my personal growth and academic development.",
+    image: "https://ik.imagekit.io/glowaura/bcpsc_campus.jpeg"
   },
   {
     id: "bzs",
@@ -48,6 +51,7 @@ export const educations: EducationItem[] = [
     period: "2010 - 2018",
     grade: "GPA 5.00/5.00",
     activities: "Cricket, Football, cycling",
-    description: "I attended Bogura Zilla School from 2010 to 2018. I got admitted after competing with 3,000 students in the entrance test. During my time there, I learned from some remarkable teachers and made friends with caring classmates. I gained valuable knowledge and experiences during my childhood and successfully completed my SSC in 2018."
+    description: "I attended Bogura Zilla School from 2010 to 2018. I got admitted after competing with 3,000 students in the entrance test. During my time there, I learned from some remarkable teachers and made friends with caring classmates. I gained valuable knowledge and experiences during my childhood and successfully completed my SSC in 2018.",
+    image: "https://ik.imagekit.io/glowaura/bzs_campus1.jpeg"
   }
 ];
