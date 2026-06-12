@@ -161,8 +161,12 @@ export function AchievementStack<T extends AchievementStackItem>({
 
   const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
 
-  const cardSpacing = Math.max(10, Math.round(activeCardWidth * (1 - overlap)));
-  const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
+  // Responsive spacing: tighten on mobile to prevent overflow
+  const responsiveOverlap = isMobile ? Math.max(overlap, 0.7) : isTablet ? Math.max(overlap, 0.6) : overlap;
+  const responsiveSpreadDeg = isMobile ? Math.min(spreadDeg, 10) : isTablet ? Math.min(spreadDeg, 15) : spreadDeg;
+
+  const cardSpacing = Math.max(10, Math.round(activeCardWidth * (1 - responsiveOverlap)));
+  const stepDeg = maxOffset > 0 ? responsiveSpreadDeg / maxOffset : 0;
 
   const canGoPrev = loop || active > 0;
   const canGoNext = loop || active < len - 1;
@@ -216,13 +220,13 @@ export function AchievementStack<T extends AchievementStackItem>({
 
   return (
     <div
-      className={cn("w-full", className)}
+      className={cn("w-full overflow-x-clip overflow-y-visible", className)}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
       <div
         className="relative w-full"
-        style={{ height: Math.max(380, activeCardHeight + 80) }}
+        style={{ height: Math.max(isMobile ? 320 : 420, activeCardHeight + (isMobile ? 80 : 100)) }}
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
@@ -287,7 +291,7 @@ export function AchievementStack<T extends AchievementStackItem>({
                 <motion.div
                   key={item.id}
                   className={cn(
-                    "absolute bottom-0 rounded-2xl border-4 border-black/10 dark:border-white/10 overflow-hidden shadow-xl",
+                    "absolute bottom-8 sm:bottom-12 rounded-2xl border-4 border-black/10 dark:border-white/10 overflow-hidden shadow-2xl",
                     "will-change-transform select-none",
                     isActive
                       ? "cursor-grab active:cursor-grabbing"

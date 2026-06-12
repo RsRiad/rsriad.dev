@@ -30,7 +30,7 @@ export function EducationSection() {
               Education
             </TextAnimate>{" "}
             <TextAnimate animation="blurIn" by="word" once delay={0.15} as="span">
-              that build the foundation.
+              builds the foundation.
             </TextAnimate>
           </h2>
 
