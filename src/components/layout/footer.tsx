@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-black text-white transition-colors duration-300 dark:bg-white dark:text-black pt-16 pb-4 px-6 md:px-12 lg:px-20 overflow-hidden select-none">
       {/* Top Heading */}
-      <div className="max-w-5xl mx-auto mb-16">
+      <div className="max-w-4xl mx-auto mb-16">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight">
           <SparklesText>
             {" "}
@@ -32,7 +32,7 @@ export default function Footer() {
       </div>
 
       {/* Main Contact & Social Row */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-neutral-800 dark:border-neutral-200">
+      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-neutral-800 dark:border-neutral-200">
         {/* Email */}
         <div>
           <p className="text-xs font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
@@ -101,7 +101,7 @@ export default function Footer() {
       </div>
 
       {/* Menus and Copyright Secondary Row */}
-      <div className="max-w-5xl mx-auto pt-8 grid grid-cols-2 md:grid-cols-3 gap-8 text-sm font-medium">
+      <div className="max-w-4xl mx-auto pt-8 grid grid-cols-2 md:grid-cols-3 gap-8 text-sm font-medium justify-center fle">
         {/* Menu Navigation */}
         <div>
           <p className="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
@@ -169,11 +169,12 @@ export default function Footer() {
         </h1>
       </div> */}
 
-      <div className="w-full max-w-5xl mx-auto relative translate-y-1/4 md:translate-y-16 lg:translate-y-20 text-center mt-12 select-none pointer-events-none">
+      <div className="w-full max-w-4xl flex justify-center mx-auto relative translate-y-1/4 md:translate-y-16 lg:translate-y-20 text-center mt-12 select-none pointer-events-none">
         <svg viewBox="0 0 61.3 13" className="w-full h-auto">
           <text
-            x="0"
+            x="50%"
             y="12"
+            textAnchor="middle"
             className="fill-white dark:fill-black opacity-100 font-bold"
           >
             RAWHA

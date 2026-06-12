@@ -1,67 +1,203 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
+"use client";
 
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outline-none select-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        default: "relative overflow-hidden",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border border-border bg-transparent hover:bg-muted hover:text-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-muted hover:text-foreground",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+          "bg-destructive/10 text-destructive hover:bg-destructive/20",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        default: "h-10 px-6 py-2 gap-2",
+        sm: "h-8 rounded-md px-4 text-xs gap-1.5",
+        lg: "h-12 rounded-md px-8 text-base gap-2",
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
+
+function MagneticWrapper({
+  children,
+  className,
+  strength = 0.3,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  strength?: number;
+}) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = React.useCallback(
+    (e: MouseEvent) => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const distanceX = e.clientX - centerX;
+      const distanceY = e.clientY - centerY;
+      x.set(distanceX * strength);
+      y.set(distanceY * strength);
+    },
+    [x, y, strength],
+  );
+
+  const handleMouseLeave = React.useCallback(() => {
+    x.set(0);
+    y.set(0);
+  }, [x, y]);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.addEventListener("mousemove", handleMouseMove);
+    el.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      el.removeEventListener("mousemove", handleMouseMove);
+      el.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [handleMouseMove, handleMouseLeave]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x: springX, y: springY }}
+      className={cn("inline-block", className)}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function InteractiveHoverButtonContent({
+  children,
+  showArrow = true,
+}: {
+  children: React.ReactNode;
+  showArrow?: boolean;
+}) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <motion.span
+      className="relative flex items-center gap-2 z-10"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      initial={false}
+    >
+      <span className="relative overflow-hidden h-[1.2em] flex items-center">
+        <motion.span
+          className="flex flex-col"
+          animate={{ y: isHovered ? "-50%" : "0%" }}
+          transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+        >
+          <span className="block leading-[1.2em]">{children}</span>
+          <span className="block leading-[1.2em]">{children}</span>
+        </motion.span>
+      </span>
+      {showArrow && (
+        <motion.span
+          className="flex items-center justify-center"
+          animate={{
+            x: isHovered ? 4 : 0,
+            rotate: isHovered ? -45 : 0,
+          }}
+          transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+        >
+          <ArrowRight size={16} strokeWidth={2.5} />
+        </motion.span>
+      )}
+    </motion.span>
+  );
+}
 
 function Button({
   className,
   variant = "default",
   size = "default",
   asChild = false,
+  showArrow = true,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
+    asChild?: boolean;
+    showArrow?: boolean;
   }) {
-  const Comp = asChild ? Slot.Root : "button"
+  const Comp = asChild ? Slot.Root : "button";
+  const isDefault = variant === "default";
 
-  return (
+  const buttonContent = isDefault ? (
+    <InteractiveHoverButtonContent showArrow={showArrow}>
+      {children}
+    </InteractiveHoverButtonContent>
+  ) : (
+    <>{children}</>
+  );
+
+  const buttonElement = (
     <Comp
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        isDefault &&
+          "relative rounded-full bg-transparent text-black dark:text-white border border-black/10 dark:border-white/10 py-0 pl-5 pr-0 h-10 transition-colors duration-500 hover:text-white dark:hover:text-black",
+      )}
       {...props}
-    />
-  )
+    >
+      {isDefault && (
+        <>
+          {/* Background fill */}
+          <motion.span
+            className="absolute inset-0 rounded-full bg-black dark:bg-white z-0"
+            initial={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+            style={{ originX: 0.5, originY: 0.5 }}
+          />
+          {/* Content */}
+          <span className="relative z-10 flex items-center gap-2">
+            {buttonContent}
+          </span>
+        </>
+      )}
+      {!isDefault && buttonContent}
+    </Comp>
+  );
+
+  if (isDefault) {
+    return (
+      <MagneticWrapper className="inline-block" strength={0.25}>
+        {buttonElement}
+      </MagneticWrapper>
+    );
+  }
+
+  return buttonElement;
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

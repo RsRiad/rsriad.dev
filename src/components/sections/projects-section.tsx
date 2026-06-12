@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { projects, ProjectItem } from "@/data/projects";
 import { Safari } from "@/components/ui/safari";
@@ -108,12 +110,17 @@ export function ProjectsSection() {
   const homeProjects = projects.filter(p => p.featured).slice(0, 2);
 
   return (
-    <section id="projects" className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <BlurFade inView delay={0.1}>
+      <section id="projects" className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       {/* Heading */}
       <div className="flex flex-col mb-12 sm:mb-16">
         <h2 className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-bold tracking-tight leading-[1.08] text-black dark:text-white ">
-          <span className="text-gray-400 dark:text-gray-500">Projects </span>
-          that bridge code and intelligence
+          <TextAnimate animation="blurIn" by="word" once as="span" className="text-gray-400 dark:text-gray-500">
+            Projects
+          </TextAnimate>{" "}
+          <TextAnimate animation="blurIn" by="word" once delay={0.15} as="span">
+            that bridge code and intelligence
+          </TextAnimate>
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mt-3 text-base max-w-xl">
           A selected showcase of applications, tools, and research implementations built using modern full-stack methodologies.
@@ -130,11 +137,12 @@ export function ProjectsSection() {
       {/* Explore More Button */}
       <div className="mt-12 sm:mt-16 flex justify-center">
         <Link href="/projects">
-          <InteractiveHoverButton className="px-8 py-4 text-neutral-800 dark:text-neutral-200 shadow-sm">
-            Explore More
+          <InteractiveHoverButton className="px-3 py-1 text-neutral-800 dark:text-neutral-200 shadow-sm">
+          ●  Explore More
           </InteractiveHoverButton>
         </Link>
       </div>
-    </section>
+      </section>
+    </BlurFade>
   );
 }

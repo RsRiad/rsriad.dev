@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ProfileCard } from "@/components/profile-card";
 import { ArrowUpRight } from "lucide-react";
 import { PrimaryActionButton, DownloadCVButton } from "@/components/ui/action-buttons";
+import { TextAnimate } from "@/components/ui/text-animate";
 const container = {
   hidden: { opacity: 0 },
   visible: {
@@ -35,28 +36,13 @@ export function HeroSection() {
           <motion.div variants={item}>
             <h1 className="text-[3rem] sm:text-4xl md:text-5xl lg:text-[3.7rem] font-bold tracking-tight leading-[1.08]">
               <div className="block">
-                <span className="text-gray-400 dark:text-gray-400">
-                  Hey I&apos;m{" Riad."}
-                </span>
-{/* 
-                <DiaTextReveal
-                  className="
-                    text-[2.5rem]
-                    sm:text-4xl
-                    md:text-5xl
-                    lg:text-[3rem]
-                    font-bold
-                    tracking-tight
-                    leading-[1.08]
-                    inline-block
-                  "
-                  colors={["#22d3ee", "#818cf8", "#f472b6", "#34d399"]}
-                  text="Riad."
-                /> */}
+                <TextAnimate animation="blurIn" by="word" once={false} as="span" className="text-gray-400 dark:text-gray-400">
+                  Hey I&apos;m Riad.
+                </TextAnimate>
               </div>
-              <span className="text-blsck dark:text-white block mt-1">
+              <TextAnimate animation="blurIn" by="word" once={false} delay={0.3} as="span" className="text-black dark:text-white block mt-1">
                 Welcome to my slice of the web!
-              </span>
+              </TextAnimate>
             </h1>
           </motion.div>
 

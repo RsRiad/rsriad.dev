@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { Marquee } from "@/components/ui/marquee";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { techStack } from "@/data/tech-stack";
 
 const firstRow = techStack.slice(0, Math.ceil(techStack.length / 2));
@@ -43,55 +47,62 @@ function TechCard({ name, icon }: { name: string; icon: string }) {
 
 export function TechStackMarquee() {
   return (
-    <section className="mx-auto w-full max-w-5xl overflow-hidden py-10 px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-6">
-        {/* Left Side */}
-        <div className="relative shrink-0 w-full xl:w-auto text-center xl:text-left z-10">
-  <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
-    <span className="text-gray-400 dark:text-gray-400 font-bold">My tech</span> <span className="font-bold">stack</span>
-  </h2>
+    <BlurFade inView delay={0.1}>
+      <section className="mx-auto w-full max-w-5xl overflow-hidden py-10 px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-6">
+          {/* Left Side */}
+          <div className="relative shrink-0 w-full xl:w-auto text-center xl:text-left z-10">
+            <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
+              <TextAnimate animation="blurIn" by="word" once className="inline text-gray-400 dark:text-gray-400 font-bold">
+                My tech
+              </TextAnimate>{" "}
+              <TextAnimate animation="blurIn" by="word" once delay={0.15} className="inline font-bold">
+                stack
+              </TextAnimate>
+            </h2>
 
-  {/* Outer fade */}
-  <div
-    className="
-      pointer-events-none
-      absolute
-      top-0
-      -right-28
-      h-full
-      w-28
-      bg-gradient-to-r
-      from-background
-      via-background/70
-      to-transparent
-      blur-md
-    "
-  />
-</div>
+            {/* Outer fade */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                top-0
+                -right-28
+                h-full
+                w-28
+                bg-gradient-to-r
+                from-background
+                via-background/70
+                to-transparent
+                blur-md
+              "
+            />
+          </div>
 
-        {/* Right Side */}
-        <div className="relative flex min-w-0 w-full flex-1 flex-col justify-center overflow-hidden">
-          {/* Top Row */}
-          <Marquee pauseOnHover className="[--duration:28s]">
-            {firstRow.map((item) => (
-              <TechCard key={item.name} name={item.name} icon={item.icon} />
-            ))}
-          </Marquee>
+          {/* Right Side */}
+          <div className="relative flex min-w-0 w-full flex-1 flex-col justify-center overflow-hidden">
+            {/* Top Row */}
+            <Marquee pauseOnHover className="[--duration:28s]">
+              {firstRow.map((item) => (
+                <TechCard key={item.name} name={item.name} icon={item.icon} />
+              ))}
+            </Marquee>
 
-          {/* Bottom Row */}
-          <Marquee reverse pauseOnHover className="mt-4 [--duration:28s]">
-            {secondRow.map((item) => (
-              <TechCard key={item.name} name={item.name} icon={item.icon} />
-            ))}
-          </Marquee>
+            {/* Bottom Row */}
+            <Marquee reverse pauseOnHover className="mt-4 [--duration:28s]">
+              {secondRow.map((item) => (
+                <TechCard key={item.name} name={item.name} icon={item.icon} />
+              ))}
+            </Marquee>
 
-          {/* Left Fade */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 xl:w-40 bg-gradient-to-r from-background to-transparent z-10" />
+            {/* Left Fade */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-32 xl:w-40 bg-gradient-to-r from-background to-transparent z-10" />
 
-          {/* Right Fade */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 xl:w-40 bg-gradient-to-l from-background to-transparent z-10" />
+            {/* Right Fade */}
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-32 xl:w-40 bg-gradient-to-l from-background to-transparent z-10" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </BlurFade>
   );
 }

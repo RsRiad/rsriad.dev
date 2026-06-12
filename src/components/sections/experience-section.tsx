@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { Mail, ChevronDown } from "lucide-react";
 import { experiences } from "@/data/experience";
 import { PrimaryActionButton, DownloadCVButton } from "@/components/ui/action-buttons";
@@ -16,15 +18,20 @@ export function ExperienceSection() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-2 sm:py-10">
+    <BlurFade inView delay={0.1}>
+      <section className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-2 sm:py-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         {/* Left Column: Heading & Accordion */}
         <div className="lg:col-span-6 flex flex-col">
           {/* Header */}
           <h2 className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-bold tracking-tight leading-[1.08] text-black dark:text-white mb-10 sm:mb-12">
-             <span className=" text-gray-400 dark:text-gray-500">Experience </span>
-            that speaks for itself.
+             <TextAnimate animation="blurIn" by="word" once as="span" className="text-gray-400 dark:text-gray-500">
+               Experience
+             </TextAnimate>{" "}
+             <TextAnimate animation="blurIn" by="word" once delay={0.15} as="span">
+               that speaks for itself.
+             </TextAnimate>
           </h2>
 
           {/* Subtitle */}
@@ -159,6 +166,7 @@ export function ExperienceSection() {
         </div>
 
       </div>
-    </section>
+      </section>
+    </BlurFade>
   );
 }

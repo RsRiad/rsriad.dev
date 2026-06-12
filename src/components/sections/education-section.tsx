@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { ChevronDown, GraduationCap } from "lucide-react";
 import { educations } from "@/data/education";
 
@@ -16,15 +18,20 @@ export function EducationSection() {
   const activeEducation = educations.find((edu) => edu.id === expandedId);
 
   return (
-    <section id="education" className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <BlurFade inView delay={0.1}>
+      <section id="education" className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         {/* Left Column: Heading & Image Panel */}
         <div className="lg:col-span-6 flex flex-col lg:sticky lg:top-28">
           {/* Header */}
           <h2 className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-bold tracking-tight leading-[1.08] text-black dark:text-white mb-6">
-            <span className="text-gray-400 dark:text-gray-500">Education </span>
-            that build the foundation.
+            <TextAnimate animation="blurIn" by="word" once as="span" className="text-gray-400 dark:text-gray-500">
+              Education
+            </TextAnimate>{" "}
+            <TextAnimate animation="blurIn" by="word" once delay={0.15} as="span">
+              that build the foundation.
+            </TextAnimate>
           </h2>
 
           {/* Subtitle */}
@@ -213,6 +220,7 @@ export function EducationSection() {
         </div>
 
       </div>
-    </section>
+      </section>
+    </BlurFade>
   );
 }

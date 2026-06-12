@@ -1,37 +1,141 @@
 "use client";
-
-import React from "react";
-import { ArrowRight } from "lucide-react";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
 import { cn } from "@/lib/utils";
+import { RiArrowRightLine } from "@remixicon/react";
 
-interface InteractiveHoverButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+/**
+ * Updated interactiveHoverButtonVariants:
+ * - Modified ONLY the `default` variant
+ * - Added nested `.arrow` styling so the icon is controlled internally
+ */
+const interactiveHoverButtonVariants = cva(
+  "group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        /**
+         * ✅ Custom default variant
+         * - Light background → dark background on hover
+         * - Arrow is a circular badge with inverted colors on hover
+         */
+        default: `
+          relative overflow-hidden
+          bg-transparent rounded-full
+
+          py-0 pl-2 pr-0
+
+          /* Light mode */
+          text-black
+
+          /* Dark mode */
+          dark:text-white
+
+          transition-colors duration-300
+
+          /* Hover fill layer */
+          before:absolute before:inset-0
+          before:rounded-full
+          before:-translate-x-full
+          before:transition-transform before:duration-500
+          before:z-0
+
+          /* Fill color adapts */
+          before:bg-black
+          dark:before:bg-white
+
+          hover:before:translate-x-0
+
+          /* Content above */
+          [&_.content]:relative
+          [&_.content]:z-10
+
+          /* Text flips on hover */
+          hover:[&_.content]:text-white
+          dark:hover:[&_.content]:text-black
+
+          /* Arrow */
+          [&_.arrow]:relative
+          [&_.arrow]:z-10
+          [&_.arrow]:flex
+          [&_.arrow]:items-center
+          [&_.arrow]:justify-center
+          [&_.arrow]:size-8
+          [&_.arrow]:rounded-full
+
+          /* Arrow contrast */
+          [&_.arrow]:bg-black [&_.arrow]:text-white
+          dark:[&_.arrow]:bg-white dark:[&_.arrow]:text-black
+        `,
+        outline:
+          "border border-border bg-input/30 hover:bg-input/50 hover:text-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-muted hover:text-foreground",
+        destructive:
+          "bg-destructive/10 text-destructive hover:bg-destructive/20",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-auto",
+        sm: "text-sm px-4 py-2",
+        lg: "text-base px-6 py-3",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+export interface InteractiveHoverButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof interactiveHoverButtonVariants> {
+  asChild?: boolean;
+  showArrow?: boolean;
   text?: string;
 }
 
 export const InteractiveHoverButton = React.forwardRef<
   HTMLButtonElement,
   InteractiveHoverButtonProps
->(({ children, text, className, ...props }, ref) => {
-  return (
-    <button
-      ref={ref}
-      className={cn(
-        "group relative w-auto cursor-pointer overflow-hidden rounded-full border border-neutral-300 dark:border-neutral-700 bg-background p-2 px-6 text-center font-semibold text-sm",
-        className,
-      )}
-      {...props}
-    >
-      <span className="relative z-10 inline-block translate-x-1 transition-all duration-500 group-hover:translate-x-12 group-hover:opacity-0">
-        {children || text}
-      </span>
-      <div className="absolute inset-0 z-20 flex h-full w-full translate-x-12 items-center justify-center gap-2 text-white dark:text-black opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
-        <span>{children || text}</span>
-        <ArrowRight className="w-4 h-4" />
-      </div>
-      <div className="absolute left-[20%] top-[40%] h-1 w-1 rounded-full bg-neutral-900 dark:bg-white transition-all duration-500 group-hover:left-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:scale-[1.8] group-hover:rounded-none" />
-    </button>
-  );
-});
+>(
+  (
+    {
+      className,
+      variant = "default",
+      size = "default",
+      asChild = false,
+      showArrow = true,
+      children,
+      text,
+      ...props
+    },
+    ref,
+  ) => {
+    const Comp = asChild ? Slot.Root : "button";
+
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          "inline-flex items-center gap-2",
+          interactiveHoverButtonVariants({ variant, size, className }),
+        )}
+        {...props}
+      >
+        <span className="content pl-3 pr-1 py-3">{children || text}</span>
+
+        {showArrow && (
+          <span className="arrow ml-1">
+            <RiArrowRightLine size={16} />
+          </span>
+        )}
+      </Comp>
+    );
+  },
+);
 
 InteractiveHoverButton.displayName = "InteractiveHoverButton";
