@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import { ProjectCard } from "@/components/sections/projects-section";
 import { projects } from "@/data/projects";
+import { TextAnimate } from "@/components/ui/text-animate";
 
 export default function ProjectsPage() {
   return (
@@ -32,8 +33,12 @@ export default function ProjectsPage() {
 
             {/* Title & Description */}
             <h1 className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-bold tracking-tight leading-[1.08] text-black dark:text-white">
-              <span className="text-gray-400 dark:text-gray-500">My </span>
-              projects.
+              <TextAnimate animation="blurIn" by="word" once={false} as="span" className="text-gray-400 dark:text-gray-500">
+                My
+              </TextAnimate>{" "}
+              <TextAnimate animation="blurIn" by="word" once={false} delay={0.15} as="span">
+                projects.
+              </TextAnimate>
             </h1>
             
             <p className="text-gray-500 dark:text-gray-400 mt-4 text-sm sm:text-base max-w-2xl leading-relaxed">

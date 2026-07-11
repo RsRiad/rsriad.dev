@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { HeroSection } from "@/components/sections/hero-section";
 import { TechStackMarquee } from "@/components/sections/tech-stack-marquee";
 import { ExperienceSection } from "@/components/sections/experience-section";
+import { TechnologySection } from "@/components/sections/technology-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { EducationSection } from "@/components/sections/education-section";
 import { AchievementsSection } from "@/components/sections/achievements-section";
@@ -15,6 +16,7 @@ export default function Home() {
       <TechStackMarquee />
       <ProjectsSection />
       <ExperienceSection />
+      <TechnologySection />
       <EducationSection />
       <AchievementsSection />
       <Footer />

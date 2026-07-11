@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { SparklesText } from "@/components/ui/sparkles-text";
@@ -8,6 +10,7 @@ import {
   WhatsAppIcon,
 } from "@/components/social-icons";
 import { RotateWords } from "../ui/rotate-words";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -65,37 +68,53 @@ export default function Footer() {
             Social
           </p>
           <div className="flex items-center gap-3">
-            {/* GitHub with Counter Bubble style */}
-            <a
-              href="https://github.com/RsRiad"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-800 dark:border-neutral-300 bg-neutral-900 dark:bg-neutral-50 text-sm font-medium hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
-            >
-              <GithubIcon className="w-4 h-4 text-white dark:text-black" />
-            </a>
+            {/* GitHub */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="https://github.com/RsRiad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full border border-neutral-800 dark:border-neutral-300 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
+                  aria-label="GitHub"
+                >
+                  <GithubIcon className="w-4 h-4 text-white dark:text-black" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="top">GitHub</TooltipContent>
+            </Tooltip>
 
             {/* LinkedIn */}
-            <a
-              href="https://linkedin.com/in/rsriad"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full border border-neutral-800 dark:border-neutral-300 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon className="w-4 h-4 text-white dark:text-black" />
-            </a>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="https://linkedin.com/in/rsriad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full border border-neutral-800 dark:border-neutral-300 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedinIcon className="w-4 h-4 text-white dark:text-black" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="top">LinkedIn</TooltipContent>
+            </Tooltip>
 
             {/* Facebook */}
-            <a
-              href="https://facebook.com/i.am.riad01"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full border border-neutral-800 dark:border-neutral-300 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
-              aria-label="Facebook"
-            >
-              <FacebookIcon className="w-4 h-4 text-white dark:text-black" />
-            </a>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="https://facebook.com/i.am.riad01"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full border border-neutral-800 dark:border-neutral-300 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon className="w-4 h-4 text-white dark:text-black" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="top">Facebook</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </div>

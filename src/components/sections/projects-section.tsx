@@ -8,7 +8,6 @@ import { TextAnimate } from "@/components/ui/text-animate";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { projects, ProjectItem } from "@/data/projects";
 import { Safari } from "@/components/ui/safari";
-import { Lens } from "@/components/ui/lens";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 // A reusable ProjectCard component
@@ -32,20 +31,18 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
       <div>
         {/* Project Image Container */}
         <div className="relative w-full mb-6 flex items-center justify-center">
-          <Lens zoomFactor={2} lensSize={100} isStatic={false} ariaLabel="Zoom Area">
-            <Safari
-              url={project.liveUrl ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : "project"}
-              imageSrc={project.image}
-              className="w-full size-full"
-            />
-          </Lens>
+          <Safari
+            url={project.liveUrl ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : "project"}
+            imageSrc={project.image}
+            className="w-full size-full"
+          />
 
           {/* Top Right Action Button */}
           {(project.liveUrl || project.githubUrl) && (
             <Link
               href={project.liveUrl || project.githubUrl || "#"}
               target="_blank"
-              className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center bg-white/30 backdrop-blur-md text-gray-900 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-sm border border-white/20 z-10"
+              className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center bg-white/30 backdrop-blur-md text-gray-900 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-sm border border-white/20 z-10 opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto"
               aria-label="Open Project"
             >
               <ArrowUpRight className="w-5 h-5" />

@@ -37,7 +37,7 @@ const interactiveHoverButtonVariants = cva(
           /* Hover fill layer */
           before:absolute before:inset-0
           before:rounded-full
-          before:-translate-x-full
+          before:-translate-x-[102%]
           before:transition-transform before:duration-500
           before:z-0
 
@@ -67,6 +67,57 @@ const interactiveHoverButtonVariants = cva(
           /* Arrow contrast */
           [&_.arrow]:bg-black [&_.arrow]:text-white
           dark:[&_.arrow]:bg-white dark:[&_.arrow]:text-black
+        `,
+        alternate: `
+          relative overflow-hidden
+          bg-black rounded-full
+          dark:bg-white
+
+          py-0 pl-2 pr-0
+
+          /* Light mode */
+          text-white
+          border border-transparent
+
+          /* Dark mode */
+          dark:text-black
+          dark:border-transparent
+
+          transition-colors duration-300
+
+          /* Hover fill layer */
+          before:absolute before:inset-0
+          before:rounded-full
+          before:-translate-x-[102%]
+          before:transition-transform before:duration-500
+          before:z-0
+
+          /* Fill color adapts */
+          before:bg-white
+          dark:before:bg-black
+
+          hover:before:translate-x-0
+
+          /* Content above */
+          [&_.content]:relative
+          [&_.content]:z-10
+
+          /* Text flips on hover */
+          hover:[&_.content]:text-black
+          dark:hover:[&_.content]:text-white
+
+          /* Arrow */
+          [&_.arrow]:relative
+          [&_.arrow]:z-10
+          [&_.arrow]:flex
+          [&_.arrow]:items-center
+          [&_.arrow]:justify-center
+          [&_.arrow]:size-8
+          [&_.arrow]:rounded-full
+
+          /* Arrow contrast */
+          [&_.arrow]:bg-neutral-200 [&_.arrow]:text-black
+          dark:[&_.arrow]:bg-neutral-800 dark:[&_.arrow]:text-white
         `,
         outline:
           "border border-border bg-input/30 hover:bg-input/50 hover:text-foreground",

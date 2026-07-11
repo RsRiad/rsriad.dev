@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { WhatsAppIcon, LinkedinIcon, FacebookIcon, VerifiedIcon } from "./social-icons";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const socials = [
   { icon: WhatsAppIcon, href: "https://wa.me/8801703750565", label: "WhatsApp",className: "size-1" },
@@ -34,15 +35,19 @@ export function ProfileCard() {
         {/* Transparent rounded overlay icons on bottom right */}
         <div className="absolute bottom-3 right-3 flex items-center gap-2 z-10">
           {socials.map((social) => (
-            <Link
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              className="w-9 h-9 flex items-center justify-center bg-white/30 backdrop-blur-md text-gray-900 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-sm border border-white/20"
-              aria-label={social.label}
-            >
-              <social.icon className="w-[18px] h-[18px]" />
-            </Link>
+            <Tooltip key={social.label}>
+              <TooltipTrigger asChild>
+                <Link
+                  href={social.href}
+                  target="_blank"
+                  className="w-9 h-9 flex items-center justify-center bg-white/30 backdrop-blur-md text-gray-900 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-sm border border-white/20"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-[18px] h-[18px]" />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="top">{social.label}</TooltipContent>
+            </Tooltip>
           ))}
         </div>
       </div>
@@ -50,8 +55,16 @@ export function ProfileCard() {
       {/* Info Card — compact */}
       <div className="mt-2 p-2">
       {/* border border-gray-100 dark:border-white/10 shadow-sm */}
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-tight flex gap-2">
-          Md. Rawha Siddiqi Riad <VerifiedIcon />
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-tight flex items-center gap-2">
+          Md. Rawha Siddiqi Riad{" "}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="inline-flex items-center cursor-help">
+                <VerifiedIcon />
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="top">Verified Profile</TooltipContent>
+          </Tooltip>
         </h2>
         <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
           Full Stack Developer, Software Engineer &amp; Researcher

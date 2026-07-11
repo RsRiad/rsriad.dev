@@ -256,7 +256,8 @@ const MotionImage = motion(
     props: ImageProps,
     ref: Ref<HTMLImageElement>
   ) {
-    return <Image ref={ref} {...props} />;
+    const { alt, ...rest } = props;
+    return <Image ref={ref} alt={alt || ""} {...rest} />;
   })
 );
 

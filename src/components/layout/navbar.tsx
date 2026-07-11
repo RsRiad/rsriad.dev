@@ -17,10 +17,9 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Blogs", href: "#blogs" },
-    { label: "Memories", href: "#memories" },
-    { label: "Contact", href: "#contact" },
+    { label: "Blogs", href: "/blogs" },
+    { label: "Memories", href: "/#memories" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   const renderThemeToggler = () => (
