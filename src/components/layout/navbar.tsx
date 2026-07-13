@@ -70,6 +70,7 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-fit px-4"
+        data-lenis-prevent
       >
         <nav
           className="
@@ -153,6 +154,7 @@ export function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-gray-50 dark:bg-[#0a0a0a] flex flex-col items-center justify-center"
+            data-lenis-prevent
           >
             {/* Menu Links */}
             <div className="flex flex-col items-center gap-6 mt-16">

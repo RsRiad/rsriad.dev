@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <TooltipProvider>
-            {children}
+            <SmoothScroll>
+              {children}
+            </SmoothScroll>
           </TooltipProvider>
           <ProgressiveBlur height="10%" position="bottom" />
         </ThemeProvider>
