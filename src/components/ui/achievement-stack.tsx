@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -124,12 +124,29 @@ export function AchievementStack<T extends AchievementStackItem>({
   );
   const [hovering, setHovering] = React.useState(false);
 
+  // Quantize to breakpoints so resizing doesn't trigger per-pixel re-renders.
+  // Only 3 possible values: 640 (mobile), 1024 (tablet), 1200 (desktop).
+  const getBreakpoint = () => {
+    const w = window.innerWidth;
+    if (w < 640) return 640;
+    if (w < 1024) return 1024;
+    return 1200;
+  };
+
   const windowWidth = React.useSyncExternalStore(
     (callback) => {
-      window.addEventListener("resize", callback);
-      return () => window.removeEventListener("resize", callback);
+      let current = getBreakpoint();
+      const handler = () => {
+        const next = getBreakpoint();
+        if (next !== current) {
+          current = next;
+          callback();
+        }
+      };
+      window.addEventListener("resize", handler);
+      return () => window.removeEventListener("resize", handler);
     },
-    () => window.innerWidth,
+    getBreakpoint,
     () => 1200,
   );
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { Moon, Sun, Monitor, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,8 +18,8 @@ export function Navbar() {
 
   const navItems = [
     { label: "Blogs", href: "/blogs" },
-    { label: "Memories", href: "/#memories" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Memories", href: "/memories" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const renderThemeToggler = () => (
@@ -75,7 +75,7 @@ export function Navbar() {
           className="
           flex items-center gap-4 md:gap-6
           rounded-full px-4 py-2
-          backdrop-blur-2xl
+          backdrop-blur-lg
           transition-colors duration-300
           border
           bg-gradient-to-r

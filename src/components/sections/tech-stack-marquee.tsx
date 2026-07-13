@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Marquee } from "@/components/ui/marquee";
 import { BlurFade } from "@/components/ui/blur-fade";

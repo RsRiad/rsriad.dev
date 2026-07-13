@@ -10,7 +10,7 @@ import { AchievementsSection } from "@/components/sections/achievements-section"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] transition-colors duration-300">
+    <main className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a]">
       <Navbar />
       <HeroSection />
       <TechStackMarquee />

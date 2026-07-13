@@ -2,7 +2,7 @@
 
 import { Ref, forwardRef, useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
-import { motion, AnimatePresence, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue } from "motion/react";
 import { X, Calendar, Award, ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";

@@ -16,96 +16,50 @@ export function ProgressiveBlur({
   className,
   height = "30%",
   position = "bottom",
-  blurLevels = [0.5, 1, 2, 4, 8, 16, 32, 64],
 }: ProgressiveBlurProps) {
-  // Create array with length equal to blurLevels.length - 2 (for before/after pseudo elements)
-  const divElements = Array(blurLevels.length - 2).fill(null)
+  // Lightweight CSS gradient replacement for the original 8-layer backdrop-filter blur.
+  // The previous implementation stacked 8 divs each with backdrop-filter: blur(Npx)
+  // (up to 64px), causing massive GPU overhead and scroll jank on mobile devices.
+  // This gradient overlay achieves a similar visual fade-out effect at near-zero cost.
+
+  const gradientDirection =
+    position === "top" ? "to bottom" : position === "bottom" ? "to top" : undefined
+
+  if (position === "both") {
+    return (
+      <>
+        <ProgressiveBlur className={className} height={height} position="top" />
+        <ProgressiveBlur className={className} height={height} position="bottom" />
+      </>
+    )
+  }
 
   return (
     <div
       className={cn(
-        "gradient-blur pointer-events-none fixed inset-x-0 z-10",
+        "pointer-events-none fixed inset-x-0 z-10",
         className,
-        position === "top"
-          ? "top-0"
-          : position === "bottom"
-            ? "bottom-0"
-            : "inset-y-0"
+        position === "top" ? "top-0" : "bottom-0"
       )}
-      style={{
-        height: position === "both" ? "100%" : height,
-      }}
+      style={{ height }}
     >
-      {/* First blur layer (pseudo element) */}
+      {/* Primary gradient overlay — replaces 8 stacked backdrop-filter blur layers */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 bg-gradient-to-t from-[--bg] via-[--bg-via] to-transparent"
         style={{
-          zIndex: 1,
-          backdropFilter: `blur(${blurLevels[0]}px)`,
-          WebkitBackdropFilter: `blur(${blurLevels[0]}px)`,
-          maskImage:
-            position === "bottom"
-              ? `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 37.5%)`
-              : position === "top"
-                ? `linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 37.5%)`
-                : `linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)`,
-          WebkitMaskImage:
-            position === "bottom"
-              ? `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 37.5%)`
-              : position === "top"
-                ? `linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 37.5%)`
-                : `linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)`,
-        }}
+          "--bg": "hsl(var(--background))",
+          "--bg-via": "hsl(var(--background) / 0.85)",
+          backgroundImage: `linear-gradient(${gradientDirection}, transparent 0%, hsl(var(--background) / 0.1) 20%, hsl(var(--background) / 0.4) 45%, hsl(var(--background) / 0.75) 70%, hsl(var(--background)) 100%)`,
+        } as React.CSSProperties}
       />
-
-      {/* Middle blur layers */}
-      {divElements.map((_, index) => {
-        const blurIndex = index + 1
-        const startPercent = blurIndex * 12.5
-        const midPercent = (blurIndex + 1) * 12.5
-        const endPercent = (blurIndex + 2) * 12.5
-
-        const maskGradient =
-          position === "bottom"
-            ? `linear-gradient(to bottom, rgba(0,0,0,0) ${startPercent}%, rgba(0,0,0,1) ${midPercent}%, rgba(0,0,0,1) ${endPercent}%, rgba(0,0,0,0) ${endPercent + 12.5}%)`
-            : position === "top"
-              ? `linear-gradient(to top, rgba(0,0,0,0) ${startPercent}%, rgba(0,0,0,1) ${midPercent}%, rgba(0,0,0,1) ${endPercent}%, rgba(0,0,0,0) ${endPercent + 12.5}%)`
-              : `linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)`
-
-        return (
-          <div
-            key={`blur-${index}`}
-            className="absolute inset-0"
-            style={{
-              zIndex: index + 2,
-              backdropFilter: `blur(${blurLevels[blurIndex]}px)`,
-              WebkitBackdropFilter: `blur(${blurLevels[blurIndex]}px)`,
-              maskImage: maskGradient,
-              WebkitMaskImage: maskGradient,
-            }}
-          />
-        )
-      })}
-
-      {/* Last blur layer (pseudo element) */}
+      {/* Single lightweight backdrop-blur layer for a subtle frosted effect */}
       <div
         className="absolute inset-0"
         style={{
-          zIndex: blurLevels.length,
-          backdropFilter: `blur(${blurLevels[blurLevels.length - 1]}px)`,
-          WebkitBackdropFilter: `blur(${blurLevels[blurLevels.length - 1]}px)`,
-          maskImage:
-            position === "bottom"
-              ? `linear-gradient(to bottom, rgba(0,0,0,0) 87.5%, rgba(0,0,0,1) 100%)`
-              : position === "top"
-                ? `linear-gradient(to top, rgba(0,0,0,0) 87.5%, rgba(0,0,0,1) 100%)`
-                : `linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)`,
-          WebkitMaskImage:
-            position === "bottom"
-              ? `linear-gradient(to bottom, rgba(0,0,0,0) 87.5%, rgba(0,0,0,1) 100%)`
-              : position === "top"
-                ? `linear-gradient(to top, rgba(0,0,0,0) 87.5%, rgba(0,0,0,1) 100%)`
-                : `linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)`,
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+          maskImage: `linear-gradient(${gradientDirection}, transparent 0%, black 60%)`,
+          WebkitMaskImage: `linear-gradient(${gradientDirection}, transparent 0%, black 60%)`,
         }}
       />
     </div>

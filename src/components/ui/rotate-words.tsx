@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
  
 export function RotateWords({
   text = "Rotate",

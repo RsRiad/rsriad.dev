@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextAnimate } from "@/components/ui/text-animate";
@@ -88,6 +86,7 @@ export function TechnologySection() {
               loop
               muted
               playsInline
+              preload="none"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>

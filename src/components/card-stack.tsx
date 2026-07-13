@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 
@@ -391,7 +391,7 @@ function DefaultFanCard({ item }: { item: CardStackItem; active: boolean }) {
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
             draggable={false}
-            priority
+            loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-secondary text-sm text-muted-foreground">

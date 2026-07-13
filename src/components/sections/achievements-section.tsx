@@ -45,7 +45,7 @@ export function AchievementsSection() {
         className="max-w-5xl mx-auto"
         items={achievements}
         autoAdvance
-        intervalMs={2000}
+        intervalMs={5000}
         pauseOnHover
         showDots
         maxVisible={3}

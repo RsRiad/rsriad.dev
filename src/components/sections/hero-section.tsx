@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ProfileCard } from "@/components/profile-card";
 import { ArrowUpRight } from "lucide-react";
 import { PrimaryActionButton, DownloadCVButton } from "@/components/ui/action-buttons";
@@ -36,11 +36,11 @@ export function HeroSection() {
           <motion.div variants={item}>
             <h1 className="text-[3rem] sm:text-4xl md:text-5xl lg:text-[3.7rem] font-bold tracking-tight leading-[1.08]">
               <div className="block">
-                <TextAnimate animation="blurIn" by="word" once={false} as="span" className="text-gray-400 dark:text-gray-400">
+                <TextAnimate animation="blurIn" by="word" once as="span" className="text-gray-400 dark:text-gray-400">
                   Hey I&apos;m Riad.
                 </TextAnimate>
               </div>
-              <TextAnimate animation="blurIn" by="word" once={false} delay={0.3} as="span" className="text-black dark:text-white block mt-1">
+              <TextAnimate animation="blurIn" by="word" once delay={0.3} as="span" className="text-black dark:text-white block mt-1">
                 Welcome to my slice of the web!
               </TextAnimate>
             </h1>

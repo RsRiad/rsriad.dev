@@ -1,6 +1,6 @@
 "use client"
 
-import { CSSProperties, ReactElement, useEffect, useState } from "react"
+import { CSSProperties, ReactElement, useEffect, useRef, useState, useCallback } from "react"
 import { motion } from "motion/react"
 
 import { cn } from "@/lib/utils"
@@ -91,10 +91,8 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
   sparklesCount = 10,
   ...props
 }) => {
-  const [sparkles, setSparkles] = useState<Sparkle[]>([])
-
-  useEffect(() => {
-    const generateStar = (): Sparkle => {
+  const [sparkles, setSparkles] = useState<Sparkle[]>(() => {
+    const generateInitial = (): Sparkle => {
       const starX = `${Math.random() * 100}%`
       const starY = `${Math.random() * 100}%`
       const color = Math.random() > 0.5 ? colors.first : colors.second
@@ -104,32 +102,74 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
       const id = `${starX}-${starY}-${Date.now()}`
       return { id, x: starX, y: starY, color, delay, scale, lifespan }
     }
+    return Array.from({ length: sparklesCount }, generateInitial)
+  })
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isVisibleRef = useRef(false)
+  const rafIdRef = useRef<number>(0)
+  const lastUpdateRef = useRef(0)
 
-    const initializeStars = () => {
-      const newSparkles = Array.from({ length: sparklesCount }, generateStar)
-      setSparkles(newSparkles)
-    }
+  const generateStar = useCallback((): Sparkle => {
+    const starX = `${Math.random() * 100}%`
+    const starY = `${Math.random() * 100}%`
+    const color = Math.random() > 0.5 ? colors.first : colors.second
+    const delay = Math.random() * 2
+    const scale = Math.random() * 1 + 0.3
+    const lifespan = Math.random() * 10 + 5
+    const id = `${starX}-${starY}-${Date.now()}`
+    return { id, x: starX, y: starY, color, delay, scale, lifespan }
+  }, [colors.first, colors.second])
 
-    const updateStars = () => {
-      setSparkles((currentSparkles) =>
-        currentSparkles.map((star) => {
-          if (star.lifespan <= 0) {
-            return generateStar()
-          } else {
-            return { ...star, lifespan: star.lifespan - 0.1 }
+  useEffect(() => {
+
+    // Use IntersectionObserver to pause animation when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting
+        if (entry.isIntersecting) {
+          // Restart animation loop when visible
+          lastUpdateRef.current = performance.now()
+          const animate = (now: number) => {
+            if (!isVisibleRef.current) return
+
+            // Throttle updates to ~5fps (every 200ms) instead of the old 10fps (100ms)
+            // The sparkle visuals are driven by CSS/motion animations, so the JS update
+            // rate only controls how often sparkles get regenerated — 5fps is plenty.
+            if (now - lastUpdateRef.current >= 200) {
+              lastUpdateRef.current = now
+              setSparkles((currentSparkles) =>
+                currentSparkles.map((star) => {
+                  if (star.lifespan <= 0) {
+                    return generateStar()
+                  } else {
+                    return { ...star, lifespan: star.lifespan - 0.2 }
+                  }
+                })
+              )
+            }
+            rafIdRef.current = requestAnimationFrame(animate)
           }
-        })
-      )
+          rafIdRef.current = requestAnimationFrame(animate)
+        } else {
+          cancelAnimationFrame(rafIdRef.current)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
     }
 
-    initializeStars()
-    const interval = setInterval(updateStars, 100)
-
-    return () => clearInterval(interval)
-  }, [colors.first, colors.second, sparklesCount])
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(rafIdRef.current)
+    }
+  }, [colors.first, colors.second, sparklesCount, generateStar])
 
   return (
     <div
+      ref={containerRef}
       className={cn("text-6xl font-bold", className)}
       {...props}
       style={
@@ -148,3 +188,4 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
     </div>
   )
 }
+
