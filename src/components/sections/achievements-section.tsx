@@ -65,8 +65,6 @@ export function AchievementsSection() {
               />
             </div>
 
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
             {item.tag && (
               <div className="absolute top-4 left-4 z-10">
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 text-xs font-bold uppercase tracking-wider rounded-full border border-rose-100 dark:border-rose-900/30">
@@ -76,15 +74,25 @@ export function AchievementsSection() {
               </div>
             )}
 
-            <div className="relative z-10 flex h-full flex-col justify-end p-5">
-              <div className="text-lg font-semibold text-white leading-tight">
+            {/* Clean floating text with high-contrast shadows */}
+            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 flex flex-col justify-end z-10">
+              <div 
+                className="text-base sm:text-lg font-bold text-white leading-tight"
+                style={{ textShadow: "0 2px 4px rgba(0,0,0,0.9), 0 4px 8px rgba(0,0,0,0.7)" }}
+              >
                 {item.title}
               </div>
-              <div className="mt-1 text-sm text-white/75 font-medium">
+              <div 
+                className="mt-0.5 text-xs sm:text-sm text-neutral-100 font-medium"
+                style={{ textShadow: "0 1px 3px rgba(0,0,0,0.9)" }}
+              >
                 {item.issuer}
               </div>
-              <div className="mt-1 flex items-center gap-1.5 text-xs text-white/60">
-                <Calendar className="w-3 h-3" />
+              <div 
+                className="mt-1 flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-200"
+                style={{ textShadow: "0 1px 3px rgba(0,0,0,0.9)" }}
+              >
+                <Calendar className="w-3 h-3 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]" />
                 {item.date}
               </div>
             </div>
@@ -93,7 +101,7 @@ export function AchievementsSection() {
       />
 
       <div className="mt-8 sm:mt-12 flex justify-center mb-10">
-        <Link href="/achievements">
+        <Link href="/#achievements">
           <InteractiveHoverButton className="px-3 py-1 text-neutral-800 dark:text-neutral-200 shadow-sm">
             ● Explore Achievements
           </InteractiveHoverButton>

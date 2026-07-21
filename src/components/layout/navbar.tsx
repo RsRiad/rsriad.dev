@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { Moon, Sun, Monitor, ChevronDown } from "lucide-react";
+import { Moon, Sun, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -29,12 +29,7 @@ export function Navbar() {
       setTheme={setTheme}
     >
       {({ effective, toggleTheme }) => {
-        const nextTheme =
-          effective === "light"
-            ? "dark"
-            : effective === "dark"
-              ? "light"
-              : "dark";
+        const nextTheme = effective === "dark" ? "light" : "dark";
 
         return (
           <button
@@ -50,9 +45,7 @@ export function Navbar() {
             className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors flex items-center justify-center border border-transparent dark:border-white/10"
             aria-label="Toggle theme"
           >
-            {effective === "system" ? (
-              <Monitor className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            ) : effective === "dark" ? (
+            {effective === "dark" ? (
               <Moon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             ) : (
               <Sun className="w-4 h-4 text-yellow-500" />

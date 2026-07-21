@@ -1,4 +1,6 @@
-import { type ComponentPropsWithoutRef } from "react"
+"use client";
+
+import { type ComponentPropsWithoutRef, useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -33,6 +35,22 @@ interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
   repeat?: number
 }
 
+function getInitialReducedMotion() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(getInitialReducedMotion);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduced;
+}
+
 export function Marquee({
   className,
   reverse = false,
@@ -42,6 +60,8 @@ export function Marquee({
   repeat = 4,
   ...props
 }: MarqueeProps) {
+  const reducedMotion = usePrefersReducedMotion();
+
   return (
     <div
       {...props}
@@ -54,16 +74,16 @@ export function Marquee({
         className
       )}
     >
-      {Array(repeat)
+      {Array(reducedMotion ? 1 : repeat)
         .fill(0)
         .map((_, i) => (
           <div
             key={i}
             className={cn("flex shrink-0 w-max gap-(--gap)", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
+              "animate-marquee flex-row": !vertical && !reducedMotion,
+              "animate-marquee-vertical flex-col": vertical && !reducedMotion,
+              "group-hover:[animation-play-state:paused]": pauseOnHover && !reducedMotion,
+              "[animation-direction:reverse]": reverse && !reducedMotion,
             })}
           >
             {children}

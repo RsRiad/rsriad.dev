@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import { blogs } from "@/data/blogs";
 import { TextAnimate } from "@/components/ui/text-animate";
+import { ShareButton } from "@/components/ui/share-button";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -15,6 +16,125 @@ export async function generateStaticParams() {
   return blogs.map((blog) => ({
     slug: blog.slug,
   }));
+}
+
+export default async function BlogDetailsPage({ params }: PageProps) {
+  const { slug } = await params;
+  const blog = blogs.find((b) => b.slug === slug);
+
+  if (!blog) {
+    notFound();
+  }
+
+  return (
+    <main className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] transition-colors duration-300 relative flex flex-col justify-between">
+      <div>
+        <Navbar />
+
+        {/* Article Wrapper */}
+        <article className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40">
+          {/* Back button */}
+          <Link
+            href="/blogs"
+            className="
+              inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold 
+              text-gray-500 dark:text-gray-400 hover:text-rose-600 dark:hover:text-rose-400
+              transition-colors duration-200 mb-8 group/back select-none
+            "
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover/back:-translate-x-0.5" />
+            <span>Back to blogs</span>
+          </Link>
+
+          {/* Banner cover */}
+          <div className="relative w-full aspect-[21/9] rounded-[2rem] overflow-hidden mb-8 shadow-sm bg-neutral-100 dark:bg-neutral-800">
+            <Image
+              src={blog.image || "https://ik.imagekit.io/credosis/Credosis/Placeholder/what%20makes%20website%20fast.png?updatedAt=1779823481727"}
+              alt={blog.title}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="object-cover"
+            />
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {blog.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] font-bold px-3 py-1 bg-neutral-100/80 dark:bg-neutral-800/40 text-neutral-600 dark:text-neutral-300 rounded-full border border-neutral-200/20 dark:border-neutral-700/20 select-none"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Title */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.12] text-gray-900 dark:text-white mb-6">
+            <TextAnimate animation="blurIn" by="word" once={false}>
+              {blog.title}
+            </TextAnimate>
+          </h1>
+
+          {/* Article Meta */}
+          <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-200/50 dark:border-neutral-800/60 mb-8 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-5">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                <span>{blog.date}</span>
+              </div>
+              <span className="text-gray-300 dark:text-neutral-800 select-none">
+                •
+              </span>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>{blog.readTime}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                <span>By {blog.author.name}</span>
+              </div>
+              <ShareButton title={blog.title} />
+            </div>
+          </div>
+
+          {/* Content Body */}
+          <div className="prose prose-neutral dark:prose-invert max-w-none">
+            {renderContent(blog.content)}
+          </div>
+
+          {/* Author Bio Box */}
+          <div className="mt-16 p-6 sm:p-8 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/10 backdrop-blur-sm flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+            <div className="relative w-16 h-16 rounded-full overflow-hidden border border-neutral-200 dark:border-neutral-800 shrink-0 bg-neutral-100 dark:bg-neutral-800">
+              <Image
+                src={blog.author.avatar || "/images/profile.png"}
+                alt={blog.author.name}
+                fill
+                sizes="64px"
+                className="object-cover"
+              />
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h4 className="text-base font-bold text-gray-900 dark:text-white">
+                Written by {blog.author.name}
+              </h4>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1.5">
+                {blog.author.role} based in Bangladesh. Specialized in software
+                engineering, dynamic frontends, and backend microservice
+                environments.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <Footer />
+    </main>
+  );
 }
 
 function renderContent(content: string) {
@@ -122,109 +242,3 @@ function renderContent(content: string) {
   return elements;
 }
 
-export default async function BlogDetailsPage({ params }: PageProps) {
-  const { slug } = await params;
-  const blog = blogs.find((b) => b.slug === slug);
-
-  if (!blog) {
-    notFound();
-  }
-
-  return (
-    <main className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] transition-colors duration-300 relative flex flex-col justify-between">
-      <div>
-        <Navbar />
-
-        {/* Article Wrapper */}
-        <article className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40">
-          {/* Back button */}
-          <Link
-            href="/blogs"
-            className="
-              inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold 
-              text-gray-500 dark:text-gray-400 hover:text-rose-600 dark:hover:text-rose-400
-              transition-colors duration-200 mb-8 group/back select-none
-            "
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover/back:-translate-x-0.5" />
-            <span>Back to blogs</span>
-          </Link>
-
-          {/* Banner cover */}
-          <div className="relative w-full aspect-[21/9] rounded-[2rem] overflow-hidden mb-8 shadow-sm bg-neutral-100 dark:bg-neutral-800">
-            <Image
-              src={blog.image || "https://ik.imagekit.io/credosis/Credosis/Placeholder/what%20makes%20website%20fast.png?updatedAt=1779823481727"}
-              alt={blog.title}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              className="object-cover"
-            />
-          </div>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {blog.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-[11px] font-bold px-3 py-1 bg-neutral-100/80 dark:bg-neutral-800/40 text-neutral-600 dark:text-neutral-300 rounded-full border border-neutral-200/20 dark:border-neutral-700/20 select-none"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.12] text-gray-900 dark:text-white mb-6">
-            <TextAnimate animation="blurIn" by="word" once={false}>
-              {blog.title}
-            </TextAnimate>
-          </h1>
-
-          {/* Article Meta */}
-          <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-200/50 dark:border-neutral-800/60 mb-8 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                <span>{blog.date}</span>
-              </div>
-              <span className="text-gray-300 dark:text-neutral-800 select-none">
-                •
-              </span>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>{blog.readTime}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4" />
-              <span>By {blog.author.name}</span>
-            </div>
-          </div>
-
-          {/* Content Body */}
-          <div className="prose prose-neutral dark:prose-invert max-w-none">
-            {renderContent(blog.content)}
-          </div>
-
-          {/* Author Bio Box */}
-          <div className="mt-16 p-6 sm:p-8 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/10 backdrop-blur-sm flex flex-col sm:flex-row gap-4 items-center">
-            <div className="flex-1 text-center sm:text-left">
-              <h4 className="text-base font-bold text-gray-900 dark:text-white">
-                Written by {blog.author.name}
-              </h4>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1.5">
-                {blog.author.role} based in Bangladesh. Specialized in software
-                engineering, dynamic frontends, and backend microservice
-                environments.
-              </p>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <Footer />
-    </main>
-  );
-}

@@ -36,7 +36,7 @@ export function HeroSection() {
           <motion.div variants={item}>
             <h1 className="text-[3rem] sm:text-4xl md:text-5xl lg:text-[3.7rem] font-bold tracking-tight leading-[1.08]">
               <div className="block">
-                <TextAnimate animation="blurIn" by="word" once as="span" className="text-gray-400 dark:text-gray-400">
+                <TextAnimate animation="blurIn" by="word" once as="span" className="text-gray-500 dark:text-gray-400">
                   Hey I&apos;m Riad.
                 </TextAnimate>
               </div>
@@ -48,11 +48,11 @@ export function HeroSection() {
 
           <motion.div
             variants={item}
-            className="space-y-3 text-gray-500 dark:text-gray-400 text-base leading-relaxed max-w-lg"
+            className="space-y-3 text-gray-600 dark:text-gray-400 text-base leading-relaxed max-w-lg"
           >
             <p>
               I&apos;m a{" "}
-              <span className="font-semibold text-blsck dark:text-white">
+              <span className="font-semibold text-gray-900 dark:text-white">
                 Full Stack Developer, Software Engineer &amp; Researcher
               </span>{" "}
               with hands-on experience in production-level web applications and
@@ -62,7 +62,7 @@ export function HeroSection() {
             <p>
               Skilled in{" "}
               <span className="font-semibold text-gray-900 dark:text-white">
-                Next.js, React, Java Script, C++
+                Next.js, React, JavaScript, C++
               </span>
               , and modern full-stack technologies, solving 600+ competitive
               programming problems.

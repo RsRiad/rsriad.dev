@@ -11,7 +11,7 @@ import { experiences } from "@/data/experience";
 import { PrimaryActionButton, DownloadCVButton } from "@/components/ui/action-buttons";
 
 export function ExperienceSection() {
-  const [expandedId, setExpandedId] = useState<string | null>("kemik");
+  const [expandedId, setExpandedId] = useState<string | null>(experiences[0]?.id ?? null);
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);

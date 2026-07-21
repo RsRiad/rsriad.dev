@@ -120,63 +120,72 @@ export default function Footer() {
       </div>
 
       {/* Menus and Copyright Secondary Row */}
-      <div className="max-w-4xl mx-auto pt-8 grid grid-cols-2 md:grid-cols-3 gap-8 text-sm font-medium justify-center fle">
+      <div className="max-w-4xl mx-auto pt-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm font-medium">
         {/* Menu Navigation */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
+          <p className="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">
             Menu
           </p>
-          <div className="grid grid-cols-2 gap-y-2">
+          <div className="flex flex-col gap-y-2">
             <Link
               href="/"
-              className="hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors"
+              className="hover:text-neutral-300 dark:hover:text-neutral-500 transition-colors"
             >
               Home
             </Link>
             <Link
-              href="/contact"
-              className="hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors"
-            >
-              Contact
-            </Link>
-            <Link
               href="/blogs"
-              className="hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors"
+              className="hover:text-neutral-300 dark:hover:text-neutral-500 transition-colors"
             >
               Blogs
-            </Link>
-            <Link
-              href="/rss"
-              className="hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors"
-            >
-              RSS
             </Link>
           </div>
         </div>
 
-        {/* Other Navigation */}
+        {/* Projects & Contact */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
-            Other
+          <p className="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">
+            Work
           </p>
           <div className="flex flex-col gap-y-2">
             <Link
-              href="/uses"
-              className="hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors"
+              href="/#projects"
+              className="hover:text-neutral-300 dark:hover:text-neutral-500 transition-colors"
             >
-              Uses
+              Projects
             </Link>
             <Link
-              href="/privacy"
-              className="hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors"
+              href="/#achievements"
+              className="hover:text-neutral-300 dark:hover:text-neutral-500 transition-colors"
             >
-              Privacy policy
+              Achievements
             </Link>
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <p className="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">
+            Connect
+          </p>
+          <div className="flex flex-col gap-y-2">
+            <a
+              href="mailto:rsriad00@gmail.com"
+              className="hover:text-neutral-300 dark:hover:text-neutral-500 transition-colors"
+            >
+              Email
+            </a>
+            <a
+              href="tel:+8801703750565"
+              className="hover:text-neutral-300 dark:hover:text-neutral-500 transition-colors"
+            >
+              Phone
+            </a>
           </div>
         </div>
 
         {/* Copyright Text */}
-        <div className="col-span-2 md:col-span-1 flex md:justify-end items-end text-neutral-500 dark:text-neutral-400 text-xs mt-4 md:mt-0">
+        <div className="col-span-2 md:col-span-1 flex md:justify-end items-end text-neutral-400 dark:text-neutral-500 text-xs mt-4 md:mt-0">
           <p>© {currentYear} Designed and developed by Riad</p>
         </div>
       </div>

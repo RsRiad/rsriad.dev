@@ -20,7 +20,7 @@ export function BlogCard({ blog }: { blog: BlogItem }) {
         hover:border-neutral-300 dark:hover:border-neutral-700 
         hover:bg-white dark:hover:bg-neutral-900/30 
         hover:shadow-[0_8px_30px_rgba(0,0,0,0.02)] dark:hover:shadow-none 
-        transition-all duration-350 cursor-pointer
+        transition-all duration-300 cursor-pointer
       "
     >
       <Link
@@ -29,13 +29,13 @@ export function BlogCard({ blog }: { blog: BlogItem }) {
       >
         <div>
           {/* Slim Cover Image Banner */}
-          <div className="relative w-full aspect-[21/10] rounded-xl overflow-hidden mb-4 bg-neutral-100 dark:bg-neutral-850">
+          <div className="relative w-full aspect-[21/10] rounded-xl overflow-hidden mb-4 bg-neutral-100 dark:bg-neutral-900">
             <Image
               src={blog.image || "https://ik.imagekit.io/credosis/Credosis/Placeholder/what%20makes%20website%20fast.png?updatedAt=1779823481727"}
               alt={blog.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-102"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
           </div>
 
@@ -84,7 +84,7 @@ export function BlogCard({ blog }: { blog: BlogItem }) {
               {blog.author.name}
             </span>
 
-            <div className="inline-flex items-center gap-0.5 text-xs font-semibold text-rose-600 dark:text-rose-400 group-hover:translate-x-0.5 transition-transform duration-250">
+            <div className="inline-flex items-center gap-0.5 text-xs font-semibold text-rose-600 dark:text-rose-400 group-hover:translate-x-0.5 transition-transform duration-300">
               <span>Read post</span>
               <ArrowRight className="w-3 h-3" />
             </div>

@@ -23,7 +23,7 @@ export function ProgressiveBlur({
   // This gradient overlay achieves a similar visual fade-out effect at near-zero cost.
 
   const gradientDirection =
-    position === "top" ? "to bottom" : position === "bottom" ? "to top" : undefined
+    position === "top" ? "to top" : position === "bottom" ? "to bottom" : undefined
 
   if (position === "both") {
     return (
@@ -43,23 +43,44 @@ export function ProgressiveBlur({
       )}
       style={{ height }}
     >
-      {/* Primary gradient overlay — replaces 8 stacked backdrop-filter blur layers */}
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-[--bg] via-[--bg-via] to-transparent"
-        style={{
-          "--bg": "hsl(var(--background))",
-          "--bg-via": "hsl(var(--background) / 0.85)",
-          backgroundImage: `linear-gradient(${gradientDirection}, transparent 0%, hsl(var(--background) / 0.1) 20%, hsl(var(--background) / 0.4) 45%, hsl(var(--background) / 0.75) 70%, hsl(var(--background)) 100%)`,
-        } as React.CSSProperties}
-      />
-      {/* Single lightweight backdrop-blur layer for a subtle frosted effect */}
+      {/* Glassmorphic translucent background gradient */}
       <div
         className="absolute inset-0"
         style={{
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
-          maskImage: `linear-gradient(${gradientDirection}, transparent 0%, black 60%)`,
-          WebkitMaskImage: `linear-gradient(${gradientDirection}, transparent 0%, black 60%)`,
+          backgroundImage: `linear-gradient(${gradientDirection}, transparent 0%, hsl(var(--background) / 0.05) 20%, hsl(var(--background) / 0.25) 50%, hsl(var(--background) / 0.6) 80%, hsl(var(--background) / 0.75) 100%)`,
+        }}
+      />
+
+      {/* Progressive Blur Layer 1: Light Blur */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
+          maskImage: `linear-gradient(${gradientDirection}, transparent 0%, black 30%, black 100%)`,
+          WebkitMaskImage: `linear-gradient(${gradientDirection}, transparent 0%, black 30%, black 100%)`,
+        }}
+      />
+
+      {/* Progressive Blur Layer 2: Medium Blur */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          maskImage: `linear-gradient(${gradientDirection}, transparent 25%, black 60%, black 100%)`,
+          WebkitMaskImage: `linear-gradient(${gradientDirection}, transparent 25%, black 60%, black 100%)`,
+        }}
+      />
+
+      {/* Progressive Blur Layer 3: Deep Blur */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          maskImage: `linear-gradient(${gradientDirection}, transparent 50%, black 90%, black 100%)`,
+          WebkitMaskImage: `linear-gradient(${gradientDirection}, transparent 50%, black 90%, black 100%)`,
         }}
       />
     </div>

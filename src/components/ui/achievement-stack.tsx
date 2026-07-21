@@ -124,29 +124,20 @@ export function AchievementStack<T extends AchievementStackItem>({
   );
   const [hovering, setHovering] = React.useState(false);
 
-  // Quantize to breakpoints so resizing doesn't trigger per-pixel re-renders.
-  // Only 3 possible values: 640 (mobile), 1024 (tablet), 1200 (desktop).
-  const getBreakpoint = () => {
-    const w = window.innerWidth;
-    if (w < 640) return 640;
-    if (w < 1024) return 1024;
-    return 1200;
-  };
-
   const windowWidth = React.useSyncExternalStore(
     (callback) => {
-      let current = getBreakpoint();
+      let timeoutId: any;
       const handler = () => {
-        const next = getBreakpoint();
-        if (next !== current) {
-          current = next;
-          callback();
-        }
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(callback, 100);
       };
       window.addEventListener("resize", handler);
-      return () => window.removeEventListener("resize", handler);
+      return () => {
+        window.removeEventListener("resize", handler);
+        clearTimeout(timeoutId);
+      };
     },
-    getBreakpoint,
+    () => (typeof window !== "undefined" ? window.innerWidth : 1200),
     () => 1200,
   );
 
@@ -154,14 +145,14 @@ export function AchievementStack<T extends AchievementStackItem>({
   const isTablet = windowWidth >= 640 && windowWidth < 1024;
 
   const activeCardWidth = isMobile
-    ? Math.min(windowWidth - 48, 340)
+    ? Math.min(windowWidth - 32, 340)
     : isTablet
-    ? Math.min(windowWidth - 96, 440)
+    ? Math.min(windowWidth - 64, 440)
     : cardWidth;
 
-  const activeCardHeight = Math.round(
-    activeCardWidth * (cardHeight / cardWidth),
-  );
+  const activeCardHeight = isMobile
+    ? 260
+    : Math.round(activeCardWidth * (cardHeight / cardWidth));
 
   React.useEffect(() => {
     const frame = requestAnimationFrame(() => {

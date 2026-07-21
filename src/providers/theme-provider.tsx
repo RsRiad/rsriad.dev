@@ -1,57 +1,47 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useSyncExternalStore } from "react";
 
-type ThemeSelection = "light" | "dark" | "system";
-type Resolved = "light" | "dark";
+export type ThemeSelection = "light" | "dark";
 
 const ThemeContext = createContext<{
   theme: ThemeSelection;
-  resolvedTheme: Resolved;
+  resolvedTheme: ThemeSelection;
   setTheme: (theme: ThemeSelection) => void;
 }>({
-  theme: "light",
-  resolvedTheme: "light",
+  theme: "dark",
+  resolvedTheme: "dark",
   setTheme: () => {},
 });
 
+const emptySubscribe = () => () => {};
+
+function getInitialTheme(): ThemeSelection {
+  if (typeof window === "undefined") return "dark";
+  const stored = localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") {
+    return stored;
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeSelection>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<Resolved>("light");
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
+  const [theme, setThemeState] = useState<ThemeSelection>(getInitialTheme);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-    const stored = localStorage.getItem("theme") as ThemeSelection | null;
-    if (stored) {
-      setThemeState(stored);
-      if (stored === "system") {
-        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        setResolvedTheme(isDark ? "dark" : "light");
-        document.documentElement.classList.toggle("dark", isDark);
-      } else {
-        setResolvedTheme(stored);
-        document.documentElement.classList.toggle("dark", stored === "dark");
-      }
-    } else {
-      // Default to system
-      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setResolvedTheme(isDark ? "dark" : "light");
-      document.documentElement.classList.toggle("dark", isDark);
-    }
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const setTheme = (next: ThemeSelection) => {
     setThemeState(next);
     localStorage.setItem("theme", next);
-    
-    let resolved: Resolved = next === "system" ? "light" : next;
-    if (next === "system") {
-      resolved = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    setResolvedTheme(resolved);
-    // ThemeToggler handles the document.documentElement.classList.toggle when using the view transition
+    document.documentElement.classList.toggle("dark", next === "dark");
   };
 
   if (!mounted) {
@@ -59,10 +49,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme: theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
 export const useTheme = () => useContext(ThemeContext);
+
+
