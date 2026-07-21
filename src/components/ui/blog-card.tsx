@@ -20,7 +20,7 @@ export function BlogCard({ blog }: { blog: BlogItem }) {
         hover:border-neutral-300 dark:hover:border-neutral-700 
         hover:bg-white dark:hover:bg-neutral-900/30 
         hover:shadow-[0_8px_30px_rgba(0,0,0,0.02)] dark:hover:shadow-none 
-        transition-all duration-300 cursor-pointer
+        cursor-pointer
       "
     >
       <Link

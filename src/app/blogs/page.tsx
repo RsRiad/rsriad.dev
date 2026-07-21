@@ -88,7 +88,7 @@ export default function BlogsPage() {
                   text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
                   focus-visible:border-rose-500 dark:focus-visible:border-rose-400
                   focus-visible:ring-rose-500/20 dark:focus-visible:ring-rose-400/20
-                  transition-all duration-300
+                  
                 "
               />
             </div>

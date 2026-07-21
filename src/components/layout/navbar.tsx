@@ -12,6 +12,34 @@ import {
   HighlightItem,
 } from "@/components/ui/highlight";
 
+function playClickSound(nextTheme?: "light" | "dark") {
+  try {
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    const isDark = nextTheme === "dark";
+    osc.type = "sine";
+
+    const startFreq = isDark ? 520 : 880;
+    const endFreq = isDark ? 220 : 440;
+
+    osc.frequency.setValueAtTime(startFreq, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(endFreq, ctx.currentTime + 0.04);
+
+    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime + 0.04);
+  } catch {}
+}
+
 export function Navbar() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,14 +61,9 @@ export function Navbar() {
 
         return (
           <button
-            onClick={(e) => {
-              try {
-                // Play a subtle switch sound (you can change the URL to a local file in /public, e.g., '/switch.mp3')
-                const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3');
-                audio.volume = 0.4;
-                audio.play().catch(() => {});
-              } catch (err) {}
-              toggleTheme(nextTheme, e);
+            onClick={() => {
+              playClickSound(nextTheme);
+              toggleTheme(nextTheme);
             }}
             className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors flex items-center justify-center border border-transparent dark:border-white/10"
             aria-label="Toggle theme"

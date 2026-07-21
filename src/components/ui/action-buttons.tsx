@@ -34,7 +34,7 @@ export function PrimaryActionButton({
         "group flex items-center gap-2 justify-center",
         "bg-rose-600 hover:bg-rose-700 text-white",
         "px-6 py-3.5 rounded-full text-sm font-semibold",
-        "transition-all duration-300 shadow-sm shadow-rose-600/10",
+        "shadow-sm shadow-rose-600/10",
         "hover:shadow-md hover:scale-[1.02] active:scale-[0.98] shrink-0",
         className,
       )}
@@ -60,7 +60,7 @@ export function DownloadCVButton({ className }: { className?: string }) {
           "hover:bg-neutral-50 dark:hover:bg-white/10",
           "text-neutral-700 dark:text-neutral-200",
           "px-6 py-3.5 rounded-full text-sm font-semibold",
-          "transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shrink-0",
+          "hover:scale-[1.02] active:scale-[0.98] shrink-0",
           className,
         )}
       >

@@ -42,7 +42,7 @@ export function EducationSection() {
           {/* <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-[15px] leading-relaxed max-w-md mb-10">
             My academic journey has been a blend of rigorous coursework, hands-on programming challenges, and research exploration. It has equipped me with strong problem-solving skills and a solid computer science foundation.
           </p> */}
-          <div className={`border border-neutral-200/80 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/20 backdrop-blur-sm rounded-[2rem] p-4 flex flex-col items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.02)] dark:shadow-none overflow-hidden relative mt-8 lg:mt-0 w-full transition-all duration-500 ease-in-out ${
+          <div className={`border border-neutral-200/80 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/20 backdrop-blur-sm rounded-[2rem] p-4 flex flex-col items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.02)] dark:shadow-none overflow-hidden relative mt-8 lg:mt-0 w-full  ease-in-out ${
             activeEducation ? "aspect-[4/3] md:aspect-video" : "aspect-square"
           }`}>
             <AnimatePresence mode="wait">
@@ -117,7 +117,7 @@ export function EducationSection() {
                 <div
                   key={edu.id}
                   className={`
-                    border rounded-[1.5rem] overflow-hidden transition-all duration-300
+                    border rounded-[1.5rem] overflow-hidden
                     ${isExpanded 
                       ? "border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 shadow-sm" 
                       : "border-neutral-200/60 dark:border-neutral-900/80 bg-white/50 dark:bg-neutral-900/10 hover:border-neutral-300 dark:hover:border-neutral-800 hover:bg-white dark:hover:bg-neutral-900/30"

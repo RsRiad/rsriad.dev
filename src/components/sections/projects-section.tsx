@@ -24,8 +24,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
         rounded-3xl p-5 sm:p-6 
         hover:border-neutral-300 dark:hover:border-neutral-700 
         hover:bg-white dark:hover:bg-neutral-900/30 
-        hover:shadow-[0_12px_40px_rgba(0,0,0,0.03)] dark:hover:shadow-none 
-        transition-all duration-300
+        hover:shadow-[0_12px_40px_rgba(0,0,0,0.03)] dark:hover:shadow-none
       "
     >
       <div>
@@ -55,7 +54,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
         )}
 
         {/* Project Header */}
-        <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white transition-colors duration-300">
+        <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {project.title}
         </h3>
 

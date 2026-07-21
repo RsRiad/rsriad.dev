@@ -47,7 +47,7 @@ export function ExperienceSection() {
                 <div
                   key={exp.id}
                   className={`
-                    border rounded-[1.5rem] overflow-hidden transition-all duration-300
+                    border rounded-[1.5rem] overflow-hidden
                     ${isExpanded 
                       ? "border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 shadow-sm" 
                       : "border-neutral-200/60 dark:border-neutral-900/80 bg-white/50 dark:bg-neutral-900/10 hover:border-neutral-300 dark:hover:border-neutral-800 hover:bg-white dark:hover:bg-neutral-900/30"

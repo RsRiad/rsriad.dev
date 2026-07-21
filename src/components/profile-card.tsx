@@ -40,7 +40,7 @@ export function ProfileCard() {
                 <Link
                   href={social.href}
                   target="_blank"
-                  className="w-9 h-9 flex items-center justify-center bg-white/30 backdrop-blur-md text-gray-900 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-sm border border-white/20"
+                  className="w-9 h-9 flex items-center justify-center bg-white/30 backdrop-blur-md text-gray-900 rounded-full hover:-translate-y-1 shadow-sm border border-white/20"
                   aria-label={social.label}
                 >
                   <social.icon className="w-[18px] h-[18px]" />
